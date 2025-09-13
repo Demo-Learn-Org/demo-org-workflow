@@ -1,0 +1,30 @@
+name: Python Build
+
+on:
+  workflow_call:
+    inputs:
+      python-version:        # define input variables
+        required: true
+        type: string
+    secrets:
+      PYPI_API_TOKEN:        # define required secrets (example for publishing)
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest

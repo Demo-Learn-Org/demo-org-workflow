@@ -1,0 +1,9 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  call-python-build:
+    uses: ./.github/workflows/python-build.yml   # local reusable workflow
+    with:
+      python-version: "3.11"                     # pass input
