@@ -1,15 +1,16 @@
-name: Org Secret Demo
+name: Environment Secret Demo
 
 on:
   workflow_dispatch:
 
 jobs:
-  demo:
+  deploy:
     runs-on: ubuntu-latest
+    environment: production   # <- links this job to the environment
     steps:
-      - name: Use organization secret
+      - name: Use environment secret
         run: |
-          echo "Organization secret works!"
-          echo "Masked value: $ORG_API_KEY"
+          echo "Deploying with production DB password"
+          echo "Masked value: $PROD_DB_PASSWORD"
         env:
-          ORG_API_KEY: ${{ secrets.ORG_API_KEY }}
+          PROD_DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
